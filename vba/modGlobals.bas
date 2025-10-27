@@ -53,6 +53,24 @@ Public Function NzStr(ByVal v As Variant) As String
     NzStr = Trim$(CStr(v))
 End Function
 
+Public Function EoMonth(ByVal startDate As Variant, Optional ByVal months As Long = 0) As Date
+    On Error GoTo Fail
+
+    Dim baseDate As Date
+    Dim firstOfMonth As Date
+    Dim nextMonth As Date
+
+    baseDate = CDate(startDate)
+    firstOfMonth = DateSerial(Year(baseDate), Month(baseDate), 1)
+    nextMonth = DateAdd("m", months + 1, firstOfMonth)
+
+    EoMonth = DateAdd("d", -1, nextMonth)
+    Exit Function
+
+Fail:
+    EoMonth = 0
+End Function
+
 Public Function FindDayHeaderRow(ws As Worksheet) As Long
     Dim r As Long, c As Long, cnt As Long, big As Long, v
 
